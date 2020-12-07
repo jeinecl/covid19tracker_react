@@ -1,18 +1,22 @@
-import React, {useState, useEffect} from 'react'
-import axios from 'axios';
-
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import {number} from './utils/fileformat'
 
 const Global = () => {
-const [world, setWorld] = useState({confirm:NaN,death:NaN,recovered:NaN})
+  const [global, setGlobal] = useState({
+    caseconfirmed: null,
+    casedeath: null,
+    caserecovered: null,
+  });
 
   useEffect(() => {
     axios
       .get("https://covid19.mathdro.id/api")
       .then((res) => {
-        setWorld({
-          confirm:res.data.confirmed.value,
-          death:res.data.deaths.value,
-          recovered:res.data.recovered.value
+        setGlobal({
+          caseconfirmed: res.data.confirmed.value,
+          casedeath: res.data.deaths.value,
+          caserecovered: res.data.recovered.value,
         });
       })
       .catch((err) => console.log(err));
@@ -20,11 +24,11 @@ const [world, setWorld] = useState({confirm:NaN,death:NaN,recovered:NaN})
   return (
     <div>
       <h2>Global</h2>
-  <p>Case Confirmed: {world.confirm}</p>
-  <p>Case Death: {world.death}</p>
-  <p>Case Recovered: {world.recovered}</p>
+      <p>Confirmed Case: {number.format(global.caseconfirmed)}</p>
+      <p>Death Case{number.format(global.casedeath)}</p>
+      <p>Recovered Case{number.format(global.caserecovered)}</p>
     </div>
   );
-}
+};
 
 export default Global;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {number} from './utils/fileformat'
+import { number } from "./utils/fileformat";
+import Card from 'react-bootstrap/Card';
 
 const Global = () => {
   const [global, setGlobal] = useState({
@@ -21,13 +22,18 @@ const Global = () => {
       })
       .catch((err) => console.log(err));
   });
-  return (
+  return (<Card className="text-center">
+  <Card.Body>
+    <Card.Text>
     <div>
       <h2>Global</h2>
       <p>Confirmed Case: {number.format(global.caseconfirmed)}</p>
-      <p>Death Case{number.format(global.casedeath)}</p>
-      <p>Recovered Case{number.format(global.caserecovered)}</p>
+      <p>Death Case: {number.format(global.casedeath)}</p>
+      <p>Recovered Case: {number.format(global.caserecovered)}</p>
     </div>
+    </Card.Text>
+  </Card.Body>
+</Card>
   );
 };
 
